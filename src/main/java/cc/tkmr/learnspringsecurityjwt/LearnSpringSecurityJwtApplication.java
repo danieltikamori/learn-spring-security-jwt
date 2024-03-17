@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Daniel I. Tikamori. All rights reserved.
+ */
+
 // This Java file is in the package cc.tkmr.learnspringsecurityjwt
 package cc.tkmr.learnspringsecurityjwt;
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Daniel I. Tikamori. All rights reserved.
+ */
+
 // Import necessary classes and packages
 package cc.tkmr.learnspringsecurityjwt.security.services;
 

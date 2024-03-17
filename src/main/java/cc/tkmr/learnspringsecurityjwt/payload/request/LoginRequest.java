@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Daniel I. Tikamori. All rights reserved.
+ */
+
 package cc.tkmr.learnspringsecurityjwt.payload.request;
 
 // This class represents the login request payload

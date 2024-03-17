@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2024 Daniel I. Tikamori. All rights reserved.
+  -->
+
 # Authentication project using Spring Security, H2 database and Design Patterns in Java
 
 This project is an example of how to use Spring Security with JWT token in Java. It also uses design patterns to simplify the code.

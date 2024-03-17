@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Daniel I. Tikamori. All rights reserved.
+ */
+
 package cc.tkmr.learnspringsecurityjwt.models;
 
 // This code defines an enumeration class ERole within the package cc.tkmr.learnspringsecurityjwt.models.
