@@ -1,7 +1,7 @@
 # Authentication project using Spring Security, H2 database and Design Patterns in Java
 
-This project is an example of how to use Spring Security in Java. It also uses design patterns to simplify the code.
-Can also adapt to use PostgreSQL and MySQL.
+This project is an example of how to use Spring Security with JWT token in Java. It also uses design patterns to simplify the code.
+It is possible to adapt to use in PostgresSQL and MySQL databases.
 
 ## Table of Contents
 
@@ -15,6 +15,8 @@ Can also adapt to use PostgreSQL and MySQL.
 This is an application that allows users to authenticate using Spring Security and data is stored at H2 in-memory database. Users can sign up, log in, and log out. Also, there are roles for each kind of users.
 
 **IMPORTANT NOTE: Disable CSRF ONLY for development environment. In production, it should be enabled. In this example, CSRF is disabled as we are using localhost and H2 in-memory database.**
+**IMPORTANT NOTE 2: For production, at WebSecurityConfig class,  `.requestMatchers(h2ConsolePath + "/**").permitAll()` must be eliminated. Development use only as it allow access to H2 console.**
+
 
 ## Dependencies and versions
 
