@@ -1,52 +1,49 @@
+// This Java file is in the package cc.tkmr.learnspringsecurityjwt
 package cc.tkmr.learnspringsecurityjwt;
 
+// Import necessary Spring Boot classes
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Annotate the class to indicate it's a Spring Boot application
 @SpringBootApplication
 public class LearnSpringSecurityJwtApplication {
 
+	// Main method to start the Spring Boot application
 	public static void main(String[] args) {
 		SpringApplication.run(LearnSpringSecurityJwtApplication.class, args);
 	}
 
 }
 
-// Use the following dependencies at spring initializer:
+// Below are dependencies required for this project:
+
+// Spring Boot starter security dependency
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+
+// Spring Boot starter web dependency
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+
+// Spring Boot starter data JPA dependency
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+
+// H2 database dependency
 // https://mvnrepository.com/artifact/com.h2database/h2
 
-// And JWT, not included in the initializer:
-// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -> moved to:
-//https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+// JWT dependency (not included in the initializers):
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt (now moved to https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api)
 
-// Paste the following code at pom.xml:
+// Include the following in the pom.xml file for JJWT API:
 //<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
 //<dependency>
 //    <groupId>io.jsonwebtoken</groupId>
 //    <artifactId>jjwt-api</artifactId>
-//    <version>0.12.5</version>
+//    <version>0.11.5</version>
 //</dependency>
 
-// Update dependencies as it may look not found.
+// Remember to update dependencies as they may appear as not found.
 
-// Create the following packages to organize your code:
-// controller
-// dtos
-// model
-// repository
-// security
-// service
+// Organize your code into packages for better structure
 
-// Utility Classes
-// SwaggerConfig - API documentation
-// JWTObject - object that represents the token
-// JWTCreator - creates the token, instantiates JWTObject
-
-// Use the following for security:
+// For security, use the following Spring security dependency:
 // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
-
-
-

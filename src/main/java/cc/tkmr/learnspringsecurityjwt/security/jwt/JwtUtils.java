@@ -19,6 +19,9 @@ import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 
+/**
+ * Utility class for handling JWT operations
+ */
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -32,6 +35,9 @@ public class JwtUtils {
     @Value("${danieltikamori.app.jwtCookieName}")
     private String jwtCookie;
 
+    /**
+     * Retrieve JWT token from cookies in the HTTP request
+     */
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie != null) {
@@ -41,26 +47,41 @@ public class JwtUtils {
         }
     }
 
+    /**
+     * Generate a JWT cookie for the authenticated user
+     */
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).secure(true).sameSite("Strict").build();
         return cookie;
     }
 
+    /**
+     * Generate a clean JWT cookie (empty value) for logging out
+     */
     public ResponseCookie getCleanJwtCookie() {
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, "").path("/api").build();
         return cookie;
     }
 
+    /**
+     * Extract the username from the JWT token
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Retrieve the secret key for JWT operations
+     */
     private SecretKey key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
+    /**
+     * Validate the JWT token
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
@@ -78,6 +99,9 @@ public class JwtUtils {
         return false;
     }
 
+    /**
+     * Generate a JWT token from the username
+     */
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .setSubject(username)

@@ -29,21 +29,24 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
+// Spring Security configuration
 @Configuration
 @EnableMethodSecurity
-
 public class WebSecurityConfig {
 
+    // Injecting properties from application.properties
     @Value("${spring.h2.console.path}")
     private String h2ConsolePath;
 
+    // Injecting UserDetailsService implementation
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
+    // Injecting custom authentication entry point
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
+    // CORS Configuration Source
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -54,11 +57,13 @@ public class WebSecurityConfig {
         return source;
     }
 
+    // Bean for JWT Authentication Token Filter
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
 
+    // Bean for Dao Authentication Provider
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -69,26 +74,32 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
+    // Bean for Authentication Manager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    // Bean for Password Encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Security Filter Chain configuration
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'
+        // Configuring headers and CORS
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)).cors(withDefaults());
 
+        // Adding authentication provider
         http.authenticationProvider(authenticationProvider()).cors(withDefaults());
 
+        // Adding JWT Token Filter
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class).cors(withDefaults());
 
+        // Configuring CSRF, Exception Handling, Session Management, and Authorization
         http.csrf(AbstractHttpConfigurer::disable) // Disable CSRF ONLY for development environment
                 .cors(withDefaults())
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)

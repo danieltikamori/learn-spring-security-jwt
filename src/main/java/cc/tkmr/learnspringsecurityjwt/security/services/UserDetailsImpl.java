@@ -13,21 +13,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import cc.tkmr.learnspringsecurityjwt.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+// This class represents the implementation of UserDetails interface from Spring Security
 public class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
-    private String username;
-
-    private String email;
-
+    private Long id; // The unique identifier of the user
+    private String username; // The username of the user
+    private String email; // The email address of the user
     @JsonIgnore
-    private String password;
+    private String password; // The password of the user (annotated with @JsonIgnore to exclude it from JSON serialization)
+    private Collection<? extends GrantedAuthority> authorities; // The authorities (roles) of the user
 
-    private Collection<? extends GrantedAuthority> authorities;
-
+    // Constructor to initialize the UserDetailsImpl object
     public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -37,6 +35,7 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    // Static method to build a UserDetailsImpl object from a User object
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -50,49 +49,59 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    // Getter for the id field
     public Long getId() {
         return id;
     }
 
+    // Getter for the email field
     public String getEmail() {
         return email;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public String getPassword() {
         return password;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public String getUsername() {
         return username;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    // Implementation of UserDetails interface method
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    // Implementation of Object's equals() method
     @Override
     public boolean equals(Object o) {
         if (this == o)
